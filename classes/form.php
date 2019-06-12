@@ -14,7 +14,14 @@ class form
 
     public function __construct(string $method = 'post')
     {
-        $this->method = strtolower($method);
+        $availableMethods = ['post','get'];
+        $method = strtolower($method);
+
+        if (!in_array($method, $availableMethods)) {
+            throw new InvalidArgumentException('Method'. $method . 'is not available.');
+        }
+
+        $this->method = $method;
     }
 
     public function add(FormElement $element) {
